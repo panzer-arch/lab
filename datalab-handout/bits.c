@@ -152,9 +152,7 @@ int bitXor(int x, int y) {
  *   Rating: 1
  */
 int tmin(void) {
-
-  return 2;
-
+  return 0x80 << 24;
 }
 //2
 /*
@@ -165,7 +163,11 @@ int tmin(void) {
  *   Rating: 1
  */
 int isTmax(int x) {
-  return 2;
+  // max int 0x7FFFFFFF
+  // 0x80000000
+  int negative_one = !((x + 1) ^ 0x0);
+  int is_max_or_negative_one = !((~x) ^ (x + 1));
+  return is_max_or_negative_one & (!negative_one);
 }
 /* 
  * allOddBits - return 1 if all odd-numbered bits in word set to 1
@@ -176,7 +178,8 @@ int isTmax(int x) {
  *   Rating: 2
  */
 int allOddBits(int x) {
-  return 2;
+  int moveX = x >> 1;
+  return ~(moveX | x);
 }
 /* 
  * negate - return -x 
